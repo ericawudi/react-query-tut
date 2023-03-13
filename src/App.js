@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import RQSuperHeroes from "./pages/RQSuperHeroes";
+import SuperHeroes from "./pages/SuperHeroes";
+import RQSuperHero from "./pages/RQSuperHero";
+import ParallelQueriesPage from "./pages/ParallelQueriesPage";
+import DynamicParallel from "./pages/DynamicParallel";
+import DependentQueries from "./pages/DependentQueries";
+import PaginatedQueries from "./pages/PaginatedQueries";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/rq-super-heroes" element={<RQSuperHeroes />} />
+        <Route path="/rq-parallel" element={<ParallelQueriesPage />} />
+        <Route
+          path="/rq-dynamic-parallel"
+          element={
+            <DynamicParallel
+              heroIds={[
+                1, 3,
+              ]} /** Imagine a scenario where the user has a table of ids where he can select multiple ids and fetch their data all at ones. In that case, you will have multiple heroId that the Dynamic component will need to fetch */
+            />
+          }
+        />
+        <Route
+          path="/rq-dependent"
+          element={<DependentQueries email="ericawudi50@gmail.com" />}
+        />
+        <Route path="/rq-pagination" element={<PaginatedQueries />} />
+        <Route path="/rq-super-heroes/:heroId" element={<RQSuperHero />} />
+        <Route path="/super-heroes" element={<SuperHeroes />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
